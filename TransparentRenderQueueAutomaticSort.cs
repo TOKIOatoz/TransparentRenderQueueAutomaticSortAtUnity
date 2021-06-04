@@ -68,7 +68,6 @@ public class ChangeTransparentSortTransparentRenderQueueAutomaticSort : MonoBeha
             meshObject.MeshObjectMaterial.renderQueue = 3000 + meshObject.SortingPriority;
             meshObject.MeshObjectMaterial.SetFloat("_SortingPriority", meshObject.SortingPriority);
         }
-        Debug.Log(meshObjects[0].SortingPriority + ", " + meshObjects[1].SortingPriority + ", " + meshObjects[2].SortingPriority + ", " + meshObjects[3].SortingPriority);
     }
 }
 [System.Serializable]
