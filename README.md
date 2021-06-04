@@ -5,6 +5,8 @@ Add this component to the appropriate GameObject and enter the number of transpa
 Then select a transparent object in MeshObjects, select a reference object for the position in ReferenceObjects, and enter the offset from the reference in MeshObjectOffset.  
 If the ReferenceObject is None, the ReferenceObject is assigned to the Object selected by MeshObject.  
 
+Operation check >>　HDRP/Hair
+
 For example  
 When setting the hair,
 
