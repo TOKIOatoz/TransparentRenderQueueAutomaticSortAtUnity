@@ -5,7 +5,7 @@ Add this component to the appropriate GameObject and enter the number of transpa
 Then select a transparent object in MeshObjects, select a reference object for the position in ReferenceObjects, and enter the offset from the reference in MeshObjectOffset.  
 If the ReferenceObject is None, the ReferenceObject is assigned to the Object selected by MeshObject.  
 
-Operation check >>　HDRP/Hair
+Operation check >>　HDRP/Lit ,HDRP/Hair
 
 For example  
 When setting the hair,
@@ -38,3 +38,5 @@ ReferenceObjectがNoneである場合，ReferenceObjectにMeshObjectで選択し
 
 設定例は上記を参照してください．
 髪のBoneを基準に後ろ髪，前髪，前の方の横の髪，後ろの方の横の髪のObjectを設定しています．
+
+動作確認はHDRP/Lit及びHDRP/Hairで行いました．
