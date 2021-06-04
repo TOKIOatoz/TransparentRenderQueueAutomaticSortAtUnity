@@ -39,10 +39,10 @@ public class ChangeTransparentSortTransparentRenderQueueAutomaticSort : MonoBeha
         foreach (var meshObject in meshObjects)
         {
             meshObjectOffsetTransform = meshObject.ReferenceObject.transform;
-            meshObjectOffsetTransform.localPosition += meshObject.MeshObjectOffset;
+            meshObjectOffsetTransform.localPosition += meshObject.ReferenceObjectOffset;
             distanceOffset = meshObjectOffsetTransform.position - mainCamera.transform.position;
             meshObject.SqrDistanceFromCamera = distanceOffset.sqrMagnitude;
-            meshObjectOffsetTransform.localPosition -= meshObject.MeshObjectOffset;
+            meshObjectOffsetTransform.localPosition -= meshObject.ReferenceObjectOffset;
             
             referenceMeshObjectList[countI] = countI;
             meshObject.SortingPriority = listSize - countI;
@@ -76,7 +76,7 @@ public class ObjectAndOffset
 {
     public GameObject MeshObject = default;
     public GameObject ReferenceObject = null;
-    public Vector3 MeshObjectOffset = default;
+    public Vector3 ReferenceObjectOffset = default;
     [System.NonSerialized]
     public int SortingPriority = 0;
     [System.NonSerialized]
