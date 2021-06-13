@@ -9,8 +9,7 @@ public class TransparentRenderQueueAutomaticSort : MonoBehaviour
     List<ObjectAndOffset> meshObjects;
     int countI, countJ, countK, listSize;
     Camera mainCamera;
-    Vector3 distanceOffset;
-    Transform meshObjectOffsetTransform;
+    Vector3 distanceOffset, meshObjectOffsetPosition;
     List<int> referenceMeshObjectList = new List<int>();
 
     void Start()
@@ -19,7 +18,15 @@ public class TransparentRenderQueueAutomaticSort : MonoBehaviour
         mainCamera = Camera.main;
         foreach (var meshObject in meshObjects)
         {
-            meshObjects[countI].MeshObjectMaterial = meshObject.MeshObject.GetComponent<SkinnedMeshRenderer>().material;
+            if (meshObject.MeshObject.GetComponent<SkinnedMeshRenderer>() != null)
+            {
+                meshObjects[countI].MeshObjectMaterial = meshObject.MeshObject.GetComponent<SkinnedMeshRenderer>().material;
+            }
+            else if (meshObject.MeshObject.GetComponent<MeshRenderer>() != null)
+            {
+
+                meshObjects[countI].MeshObjectMaterial = meshObject.MeshObject.GetComponent<MeshRenderer>().material;
+            }
             referenceMeshObjectList.Add(countI);
 
             if (meshObject.ReferenceObject == null)
@@ -38,14 +45,13 @@ public class TransparentRenderQueueAutomaticSort : MonoBehaviour
         countI = 0;
         foreach (var meshObject in meshObjects)
         {
-            meshObjectOffsetTransform = meshObject.ReferenceObject.transform;
-            meshObjectOffsetTransform.localPosition += meshObject.ReferenceObjectOffset;
-            distanceOffset = meshObjectOffsetTransform.position - mainCamera.transform.position;
+            meshObjectOffsetPosition = meshObject.ReferenceObject.transform.position;
+            meshObjectOffsetPosition += meshObject.ReferenceObject.transform.rotation * meshObject.ReferenceObjectOffset;
+            distanceOffset = meshObjectOffsetPosition - mainCamera.transform.position;
             meshObject.SqrDistanceFromCamera = distanceOffset.sqrMagnitude;
-            meshObjectOffsetTransform.localPosition -= meshObject.ReferenceObjectOffset;
-            
             referenceMeshObjectList[countI] = countI;
             meshObject.SortingPriority = listSize - countI;
+
             for (countJ = 0; countJ < countI; countJ++)
             {
                 if (meshObject.SqrDistanceFromCamera < meshObjects[referenceMeshObjectList[countJ]].SqrDistanceFromCamera)
