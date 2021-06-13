@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-public class ChangeTransparentSort : MonoBehaviour
+public class TransparentRenderQueueAutomaticSort : MonoBehaviour
 {
 
     [SerializeField]
