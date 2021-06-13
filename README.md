@@ -1,4 +1,5 @@
 # TransparentRenderQueueAutomaticSortAtUnity
+日本は下へ
 This program compares the reference positions of MainCamera and each Object, and updates the value of RenderQueue for each Update.
 This source code can be used in Unity.  
 Add this component to the appropriate GameObject and enter the number of transparent objects in MeshObjects.  
@@ -11,26 +12,6 @@ For example
 When setting the hair,
 
 ![SampleSetting](https://user-images.githubusercontent.com/46534552/121824140-dbf7ec00-cce4-11eb-9438-1697401d834c.png)
-
-<pre>
-MeshObjects = 4  
-Element0  
-    MeshObject = HairBack  
-    ReferenceObject = HairBone  
-    ReferenceObjectOffset = (0, 0, -0.05)  
-Element1  
-    MeshObject = HairBangs  
-    ReferenceObject = HairBone  
-    ReferenceObjectOffset = (0, 0, 0.05)  
-Element2  
-    MeshObject = HairFront  
-    ReferenceObject = HairBone  
-    ReferenceObjectOffset = (0, 0, 0.025)  
-Element3  
-    MeshObject = HairBack  
-    ReferenceObject = HairBone  
-    ReferenceObjectOffset = (0, 0, -0.025)  
-</pre>
 
 MainCameraとObject毎の基準の位置を比較してRenderQueueの値をUpdate毎に更新するプログラムです．  
 このソースコードはUnityで使うことができます．  
