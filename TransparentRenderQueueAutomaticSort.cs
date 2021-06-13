@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class TransparentRenderQueueAutomaticSort : MonoBehaviour
 {
@@ -11,7 +12,7 @@ public class TransparentRenderQueueAutomaticSort : MonoBehaviour
     Camera mainCamera;
     Vector3 distanceOffset, meshObjectOffsetPosition;
     List<int> referenceMeshObjectList = new List<int>();
-
+    float currentSqrDistanceFromCamera = default;
     void Start()
     {
         countI = 0;
@@ -45,10 +46,18 @@ public class TransparentRenderQueueAutomaticSort : MonoBehaviour
         countI = 0;
         foreach (var meshObject in meshObjects)
         {
-            meshObjectOffsetPosition = meshObject.ReferenceObject.transform.position;
-            meshObjectOffsetPosition += meshObject.ReferenceObject.transform.rotation * meshObject.ReferenceObjectOffset;
-            distanceOffset = meshObjectOffsetPosition - mainCamera.transform.position;
-            meshObject.SqrDistanceFromCamera = distanceOffset.sqrMagnitude;
+            foreach (var referenceObjectOffset in meshObject.ReferenceObjectOffsets.Select((value, index) => new {value, index}))
+            {
+                meshObjectOffsetPosition = meshObject.ReferenceObject.transform.position;
+                meshObjectOffsetPosition += meshObject.ReferenceObject.transform.rotation * referenceObjectOffset.value;
+                distanceOffset = meshObjectOffsetPosition - mainCamera.transform.position;
+                currentSqrDistanceFromCamera = distanceOffset.sqrMagnitude;
+                if (referenceObjectOffset.index == 0 || currentSqrDistanceFromCamera < meshObject.SqrDistanceFromCamera )
+                {
+                    meshObject.SqrDistanceFromCamera = currentSqrDistanceFromCamera;
+                }
+            }
+
             referenceMeshObjectList[countI] = countI;
             meshObject.SortingPriority = listSize - countI;
 
@@ -81,11 +90,12 @@ public class ObjectAndOffset
 {
     public GameObject MeshObject = default;
     public GameObject ReferenceObject = null;
-    public Vector3 ReferenceObjectOffset = default;
+    public List<Vector3> ReferenceObjectOffsets = default;
+    public float? SqrDistanceFromCamera = 0;
+
     [System.NonSerialized]
     public int SortingPriority = 0;
     [System.NonSerialized]
     public Material MeshObjectMaterial = default;
     [System.NonSerialized]
-    public float SqrDistanceFromCamera = 0;
 }
