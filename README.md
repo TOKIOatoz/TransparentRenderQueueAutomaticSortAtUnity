@@ -10,6 +10,8 @@ Operation check >>　HDRP/Lit,　HDRP/Hair
 For example  
 When setting the hair,
 
+![SampleSetting](https://user-images.githubusercontent.com/46534552/121824140-dbf7ec00-cce4-11eb-9438-1697401d834c.png)
+
 <pre>
 MeshObjects = 4  
 Element0  
